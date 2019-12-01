@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -15,4 +16,10 @@ export class NavMenuComponent {
   toggle() {
     this.isExpanded = !this.isExpanded;
     }
+
+  constructor(public auth: AuthService) { }
+
+  ngOnInit() {
+    }
+
 }
