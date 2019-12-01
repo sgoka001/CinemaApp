@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>MovieID</th>
+      <th>Name</th>
+      <th>Released</th>
+      <th>Movie_Genre</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <p *ngIf="!moviesList"><em>LOADING...</em></p>
+
+    <tr *ngFor="let movies of moviesList">
+      <td>{{movies.movieId}}</td>
+      <td>{{movies.name}}</td>
+      <td>{{movies.released}}</td>
+      <td>{{movies.movie_Genre}}</td>
+    </tr>
+  </tbody>
+</table>
