@@ -16,15 +16,15 @@ export default class MoviesService {
     }
     */
     getAll(): Observable<movies[]> {
-        return this.httpClient.get(`http://localhost:5001/api/Movies`).
+        return this.httpClient.get('https://localhost:5001/api/Movies/').
             pipe(
                 map((item: any) => item.map(p => <movies>
                     {
-                        Name: p.Name,
+                        Name: p.name,
                         //Name: p.name,
-                        MovieID: p.MovieID,
-                        Genre: p.Movie_Genre,
-                        Released: p.Released,
+                        MovieID: p.movieId,
+                        Genre: p.movie_Genre,
+                        Released: p.released,
                     })));
     }
 }
