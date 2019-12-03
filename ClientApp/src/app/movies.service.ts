@@ -6,22 +6,21 @@ import { map } from "rxjs/operators";
 
 @Injectable()
 export default class MoviesService {
-    public API = 'http://localhost:5001/api';
+    public API = 'https://localhost:5001/api';
     public MOVIES_ENDPOINT = `${this.API}/Movies`;
 
-    constructor(private httpClient: HttpClient) { }
-    /*
-    getAll(): Observable<Array<movies>> {
-        return this.http.get<Array<movies>>(this.MOVIES_ENDPOINT);
+    constructor(private httpClient: HttpClient, private http: HttpClient) { }
+    
+    getAllSearchable(): Observable<movies[]> {
+        return this.http.get<movies[]>(this.MOVIES_ENDPOINT);
     }
-    */
+    
     getAll(): Observable<movies[]> {
-        return this.httpClient.get('https://localhost:5001/api/Movies/').
+        return this.httpClient.get<movies[]>(this.MOVIES_ENDPOINT).
             pipe(
                 map((item: any) => item.map(p => <movies>
                     {
                         Name: p.name,
-                        //Name: p.name,
                         MovieID: p.movieId,
                         Genre: p.movie_Genre,
                         Released: p.released,
