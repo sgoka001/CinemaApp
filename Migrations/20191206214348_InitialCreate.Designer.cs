@@ -35,26 +35,6 @@ namespace CinemaApp.Migrations
                     b.HasKey("genreVM");
 
                     b.ToTable("GenreMovieVM");
-
-                    b.HasData(
-                        new
-                        {
-                            genreVM = "Sci-Fi",
-                            movieIdVM = 123,
-                            movies = "Harry Potter and the Philosopher's Stone, Harry Potter and the Chamber of Secrets, Harry Potter and the Prisoner of Azkaban"
-                        },
-                        new
-                        {
-                            genreVM = "Comedy",
-                            movieIdVM = 45,
-                            movies = "Bruce Almighty, Borat"
-                        },
-                        new
-                        {
-                            genreVM = "Sad",
-                            movieIdVM = 67,
-                            movies = "Titanic, Marley and Me"
-                        });
                 });
 
             modelBuilder.Entity("CinemaApp.Models.Genres", b =>
@@ -71,20 +51,6 @@ namespace CinemaApp.Migrations
                     b.HasIndex("GenreMovieVMgenreVM");
 
                     b.ToTable("Genres");
-
-                    b.HasData(
-                        new
-                        {
-                            Genre = "Sci-Fi"
-                        },
-                        new
-                        {
-                            Genre = "Comedy"
-                        },
-                        new
-                        {
-                            Genre = "Sad"
-                        });
                 });
 
             modelBuilder.Entity("CinemaApp.Models.Movies", b =>
@@ -115,57 +81,7 @@ namespace CinemaApp.Migrations
                     b.HasIndex("GenreMovieVMgenreVM");
 
                     b.ToTable("Movies");
-
-                    b.HasData(
-                        new
-                        {
-                            MovieId = 1,
-                            Movie_Genre = "Sci-Fi",
-                            Name = "Harry Potter and the Philosopher's Stone",
-                            Released = 2001
-                        },
-                        new
-                        {
-                            MovieId = 2,
-                            Movie_Genre = "Sci-Fi",
-                            Name = "Harry Potter and the Chamber of Secrets",
-                            Released = 2002
-                        },
-                        new
-                        {
-                            MovieId = 3,
-                            Movie_Genre = "Sci-Fi",
-                            Name = "Harry Potter and the Prisoner of Azkaban",
-                            Released = 2004
-                        },
-                        new
-                        {
-                            MovieId = 4,
-                            Movie_Genre = "Comedy",
-                            Name = "Bruce Almighty",
-                            Released = 2005
-                        },
-                        new
-                        {
-                            MovieId = 5,
-                            Movie_Genre = "Comedy",
-                            Name = "Borat",
-                            Released = 2006
-                        },
-                        new
-                        {
-                            MovieId = 6,
-                            Movie_Genre = "Sad",
-                            Name = "Titanic",
-                            Released = 2001
-                        },
-                        new
-                        {
-                            MovieId = 7,
-                            Movie_Genre = "Sad",
-                            Name = "Marley and Me",
-                            Released = 2008
-                        });
+                        
                 });
 
             modelBuilder.Entity("CinemaApp.Models.Genres", b =>
