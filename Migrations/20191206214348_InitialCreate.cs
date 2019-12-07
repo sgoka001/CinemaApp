@@ -63,41 +63,7 @@ namespace CinemaApp.Migrations
                         principalTable: "GenreMovieVM",
                         principalColumn: "genreVM",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.InsertData(
-                table: "GenreMovieVM",
-                columns: new[] { "genreVM", "movieIdVM", "movies" },
-                values: new object[,]
-                {
-                    { "Sci-Fi", 123, "Harry Potter and the Philosopher's Stone, Harry Potter and the Chamber of Secrets, Harry Potter and the Prisoner of Azkaban" },
-                    { "Comedy", 45, "Bruce Almighty, Borat" },
-                    { "Sad", 67, "Titanic, Marley and Me" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Genres",
-                columns: new[] { "Genre", "GenreMovieVMgenreVM" },
-                values: new object[,]
-                {
-                    { "Sci-Fi", null },
-                    { "Comedy", null },
-                    { "Sad", null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Movies",
-                columns: new[] { "MovieId", "Genre1", "GenreMovieVMgenreVM", "Movie_Genre", "Name", "Released" },
-                values: new object[,]
-                {
-                    { 1, null, null, "Sci-Fi", "Harry Potter and the Philosopher's Stone", 2001 },
-                    { 2, null, null, "Sci-Fi", "Harry Potter and the Chamber of Secrets", 2002 },
-                    { 3, null, null, "Sci-Fi", "Harry Potter and the Prisoner of Azkaban", 2004 },
-                    { 4, null, null, "Comedy", "Bruce Almighty", 2005 },
-                    { 5, null, null, "Comedy", "Borat", 2006 },
-                    { 6, null, null, "Sad", "Titanic", 2001 },
-                    { 7, null, null, "Sad", "Marley and Me", 2008 }
-                });
+                });            
 
             migrationBuilder.CreateIndex(
                 name: "IX_Genres_GenreMovieVMgenreVM",
