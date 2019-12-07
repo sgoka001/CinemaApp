@@ -18,29 +18,37 @@ namespace CinemaApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CinemaApp.Models.GenreMovieVM", b =>
+                {
+                    b.Property<string>("genreVM")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("movieIdVM")
+                        .HasColumnType("int");
+
+                    b.Property<string>("movies")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("genreVM");
+
+                    b.ToTable("GenreMovieVM");
+                });
+
             modelBuilder.Entity("CinemaApp.Models.Genres", b =>
                 {
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("GenreMovieVMgenreVM")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Genre");
 
-                    b.ToTable("Genres");
+                    b.HasIndex("GenreMovieVMgenreVM");
 
-                    b.HasData(
-                        new
-                        {
-                            Genre = "Sci-Fi"
-                        },
-                        new
-                        {
-                            Genre = "Comedy"
-                        },
-                        new
-                        {
-                            Genre = "Sad"
-                        });
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("CinemaApp.Models.Movies", b =>
@@ -51,13 +59,15 @@ namespace CinemaApp.Migrations
                     b.Property<string>("Genre1")
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("GenreMovieVMgenreVM")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Movie_Genre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Released")
                         .HasColumnType("int");
@@ -66,44 +76,16 @@ namespace CinemaApp.Migrations
 
                     b.HasIndex("Genre1");
 
-                    b.ToTable("Movies");
+                    b.HasIndex("GenreMovieVMgenreVM");
 
-                    b.HasData(
-                        new
-                        {
-                            MovieId = 1,
-                            Movie_Genre = "Sci-Fi",
-                            Name = "Harry Potter 1",
-                            Released = 2019
-                        },
-                        new
-                        {
-                            MovieId = 2,
-                            Movie_Genre = "Sci-Fi",
-                            Name = "Harry Potter 2",
-                            Released = 2018
-                        },
-                        new
-                        {
-                            MovieId = 3,
-                            Movie_Genre = "Sci-Fi",
-                            Name = "Harry Potter 3",
-                            Released = 2017
-                        },
-                        new
-                        {
-                            MovieId = 4,
-                            Movie_Genre = "Comedy",
-                            Name = "Bruce Almighty",
-                            Released = 2017
-                        },
-                        new
-                        {
-                            MovieId = 5,
-                            Movie_Genre = "Sad",
-                            Name = "Titanic",
-                            Released = 2017
-                        });
+                    b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("CinemaApp.Models.Genres", b =>
+                {
+                    b.HasOne("CinemaApp.Models.GenreMovieVM", null)
+                        .WithMany("GenresVM")
+                        .HasForeignKey("GenreMovieVMgenreVM");
                 });
 
             modelBuilder.Entity("CinemaApp.Models.Movies", b =>
@@ -111,6 +93,10 @@ namespace CinemaApp.Migrations
                     b.HasOne("CinemaApp.Models.Genres", "Genre")
                         .WithMany("Movies")
                         .HasForeignKey("Genre1");
+
+                    b.HasOne("CinemaApp.Models.GenreMovieVM", null)
+                        .WithMany("MoviesVM")
+                        .HasForeignKey("GenreMovieVMgenreVM");
                 });
 #pragma warning restore 612, 618
         }

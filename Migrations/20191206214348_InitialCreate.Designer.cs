@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaApp.Migrations
 {
     [DbContext(typeof(JobContext))]
-    [Migration("20191201200848_Init")]
-    partial class Init
+    [Migration("20191206214348_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,13 +20,55 @@ namespace CinemaApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CinemaApp.Models.GenreMovieVM", b =>
+                {
+                    b.Property<string>("genreVM")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("movieIdVM")
+                        .HasColumnType("int");
+
+                    b.Property<string>("movies")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("genreVM");
+
+                    b.ToTable("GenreMovieVM");
+
+                    b.HasData(
+                        new
+                        {
+                            genreVM = "Sci-Fi",
+                            movieIdVM = 123,
+                            movies = "Harry Potter and the Philosopher's Stone, Harry Potter and the Chamber of Secrets, Harry Potter and the Prisoner of Azkaban"
+                        },
+                        new
+                        {
+                            genreVM = "Comedy",
+                            movieIdVM = 45,
+                            movies = "Bruce Almighty, Borat"
+                        },
+                        new
+                        {
+                            genreVM = "Sad",
+                            movieIdVM = 67,
+                            movies = "Titanic, Marley and Me"
+                        });
+                });
+
             modelBuilder.Entity("CinemaApp.Models.Genres", b =>
                 {
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("GenreMovieVMgenreVM")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Genre");
+
+                    b.HasIndex("GenreMovieVMgenreVM");
 
                     b.ToTable("Genres");
 
@@ -53,13 +95,15 @@ namespace CinemaApp.Migrations
                     b.Property<string>("Genre1")
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("GenreMovieVMgenreVM")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Movie_Genre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Released")
                         .HasColumnType("int");
@@ -68,6 +112,8 @@ namespace CinemaApp.Migrations
 
                     b.HasIndex("Genre1");
 
+                    b.HasIndex("GenreMovieVMgenreVM");
+
                     b.ToTable("Movies");
 
                     b.HasData(
@@ -75,37 +121,58 @@ namespace CinemaApp.Migrations
                         {
                             MovieId = 1,
                             Movie_Genre = "Sci-Fi",
-                            Name = "Harry Potter 1",
-                            Released = 2019
+                            Name = "Harry Potter and the Philosopher's Stone",
+                            Released = 2001
                         },
                         new
                         {
                             MovieId = 2,
                             Movie_Genre = "Sci-Fi",
-                            Name = "Harry Potter 2",
-                            Released = 2018
+                            Name = "Harry Potter and the Chamber of Secrets",
+                            Released = 2002
                         },
                         new
                         {
                             MovieId = 3,
                             Movie_Genre = "Sci-Fi",
-                            Name = "Harry Potter 3",
-                            Released = 2017
+                            Name = "Harry Potter and the Prisoner of Azkaban",
+                            Released = 2004
                         },
                         new
                         {
                             MovieId = 4,
                             Movie_Genre = "Comedy",
                             Name = "Bruce Almighty",
-                            Released = 2017
+                            Released = 2005
                         },
                         new
                         {
                             MovieId = 5,
+                            Movie_Genre = "Comedy",
+                            Name = "Borat",
+                            Released = 2006
+                        },
+                        new
+                        {
+                            MovieId = 6,
                             Movie_Genre = "Sad",
                             Name = "Titanic",
-                            Released = 2017
+                            Released = 2001
+                        },
+                        new
+                        {
+                            MovieId = 7,
+                            Movie_Genre = "Sad",
+                            Name = "Marley and Me",
+                            Released = 2008
                         });
+                });
+
+            modelBuilder.Entity("CinemaApp.Models.Genres", b =>
+                {
+                    b.HasOne("CinemaApp.Models.GenreMovieVM", null)
+                        .WithMany("GenresVM")
+                        .HasForeignKey("GenreMovieVMgenreVM");
                 });
 
             modelBuilder.Entity("CinemaApp.Models.Movies", b =>
@@ -113,6 +180,10 @@ namespace CinemaApp.Migrations
                     b.HasOne("CinemaApp.Models.Genres", "Genre")
                         .WithMany("Movies")
                         .HasForeignKey("Genre1");
+
+                    b.HasOne("CinemaApp.Models.GenreMovieVM", null)
+                        .WithMany("MoviesVM")
+                        .HasForeignKey("GenreMovieVMgenreVM");
                 });
 #pragma warning restore 612, 618
         }

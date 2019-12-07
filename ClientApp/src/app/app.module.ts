@@ -16,6 +16,8 @@ import { HttpModule } from "@angular/http";
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AngularmaterialModule } from './material/angularmaterial/angularmaterial.module';  
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import GenresService from './genres.service';
+import { GenresComponent } from './genres/genres.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    MoviesComponent
+    MoviesComponent,
+    GenresComponent
   ],
   imports: [
       BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,10 +40,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
         { path: 'fetch-data', component: FetchDataComponent },
-        { path: 'movies', component: MoviesComponent },
+      { path: 'movies', component: MoviesComponent },
+      { path: 'genres', component: GenresComponent }
     ])
-    ],
-    providers: [MoviesService],
+  ],
+  providers: [MoviesService, GenresService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,6 +11,8 @@ import {
     animate,
     transition
 } from '@angular/animations';
+import { AuthService } from '../auth.service';
+import GenresService from '../genres.service';
 
 @Component({
   selector: 'app-movies',
@@ -24,8 +26,8 @@ export class MoviesComponent {
 
     public dataSource: MatTableDataSource<movies>;
     displayedColumns: string[] = ['movieId', 'name', 'released', 'movie_Genre'];
-    @ViewChild(MatSort, { read: true, static: false }) sort: MatSort; 
-    constructor(private apiService: MoviesService, ) {      
+  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
+  constructor(private apiService: MoviesService, public authServic: AuthService, public genService: GenresService) {      
     }       
 
     ngOnInit() {

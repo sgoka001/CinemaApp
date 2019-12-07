@@ -10,6 +10,9 @@ namespace CinemaApp.Models
         public JobContext(DbContextOptions<JobContext> options) : base(options) { }
         public virtual DbSet<Movies> Movies { get; set; }
         public virtual DbSet<Genres> Genres { get; set; }
+
+        public virtual DbSet<GenreMovieVM> GenreMovieVM { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -22,6 +25,14 @@ namespace CinemaApp.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Genres>(entity =>
+            {
+                entity.HasKey(e => e.Genre);
+
+                entity.HasMany(e => e.Movies);
+            });
+
             modelBuilder.Entity<Movies>(entity =>
             {
                 entity.HasKey(e => e.MovieId);
@@ -31,28 +42,12 @@ namespace CinemaApp.Models
                 entity.Property(e => e.MovieId).ValueGeneratedNever();
             });
 
-            modelBuilder.Entity<Genres>(entity =>
+            modelBuilder.Entity<GenreMovieVM>(entity =>
             {
-                entity.HasKey(e => e.Genre);
+                entity.HasKey(e => e.genreVM);
 
-                entity.HasMany(e => e.Movies);
+                entity.Property(e => e.genreVM).ValueGeneratedNever();
             });
-
-            //seed
-            modelBuilder.Entity<Genres>().HasData(
-                new Genres() { Genre = "Sci-Fi" },
-                new Genres() { Genre = "Comedy" },
-                new Genres() { Genre = "Sad" }
-                );
-
-            modelBuilder.Entity<Movies>().HasData(
-                new Movies() { MovieId = 1, Name = "Harry Potter 1", Released = 2019, Movie_Genre = "Sci-Fi" },
-                new Movies() { MovieId = 2, Name = "Harry Potter 2", Released = 2018, Movie_Genre = "Sci-Fi" },
-                new Movies() { MovieId = 3, Name = "Harry Potter 3", Released = 2017, Movie_Genre = "Sci-Fi" },
-                new Movies() { MovieId = 4, Name = "Bruce Almighty", Released = 2017, Movie_Genre = "Comedy" },
-                new Movies() { MovieId = 5, Name = "Titanic", Released = 2017, Movie_Genre = "Sad" }
-
-                );
 
             OnModelCreatingPartial(modelBuilder);
         }
