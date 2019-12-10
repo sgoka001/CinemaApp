@@ -1,13 +1,13 @@
-COMP 586 Object Oriented Project
+# COMP 586 Object Oriented Project
 
-SPA - Angular Client-App
+**SPA** - Angular Client-App
 
-MVC - Models Views and Controllers
+**MVC** - Models Views and Controllers
 
-ORM - Entity Framework with SQL Server
+**ORM** - Entity Framework with SQL Server
 
-Dependency Injection - Inject database context (job-context) into Movies Controller
+**Dependency Injection** - Inject database context (job-context) in server-side controllers and startup.cs
 
-Authentication - Auth0
+**Authentication** - Auth0
 
-Deployment - AWS
+**Deployment** - AWS Elastic Beanstalk
