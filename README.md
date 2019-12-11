@@ -9,5 +9,3 @@
 **Dependency Injection** - Inject database context (job-context) in server-side controllers and startup.cs
 
 **Authentication** - Auth0
-
-**Deployment** - AWS Elastic Beanstalk
