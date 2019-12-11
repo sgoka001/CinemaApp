@@ -48,22 +48,20 @@ export class MoviesComponent {
 
     /*
 export class MoviesComponent {
-    public moviesList: IMovies;
+    public moviesList: movies[] = [];
 
+    public dataSource: MatTableDataSource<movies>;
+    displayedColumns: string[] = ['movieId', 'name', 'released', 'movie_Genre'];
+  @ViewChild(MatSort, { read: true, static: false }) sort: MatSort;
     constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
         http.get<IMovies>(baseUrl + 'api/movies').subscribe(result => {
             this.moviesList = result;
+            this.dataSource = new MatTableDataSource(result);
+            this.dataSource.sort = this.sort;
         }, error => console.error(error));
     }
     ngOnInit() {
 
     }
-}
-
-interface IMovies {
-    movieId: number;
-    name: string;
-    released: number;
-    movie_Genre: string;
 }
 */

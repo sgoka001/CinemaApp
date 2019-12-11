@@ -1,6 +1,8 @@
-<div>
+<div *ngIf="auth.loggedIn">
   <h1>All Movies Table</h1>
+
   <p *ngIf="!moviesList"><em>LOADING...</em></p>
+
   <table class="table table-hover">
     <thead>
       <tr>
@@ -66,3 +68,8 @@
 
 </div>
 
+<div *ngIf="!auth.loggedIn">
+
+  <h2>Please log in for access.</h2>
+
+</div>
